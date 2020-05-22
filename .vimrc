@@ -31,6 +31,7 @@ let python_highlighting_all = 1
 " set higher contrast for dark background
 set background=dark
 
-" set syntax-highlighting for .urdf and .launch files
+" set syntax-highlighting for .urdf, .launch and .world files
 au BufReadPost *.urdf set syntax=xml
 au BufReadPost *.launch set syntax=xml
+au BufReadPost *.world set syntax=xml
