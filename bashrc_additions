@@ -1,0 +1,13 @@
+# alias for going back a few directories
+alias ..='cd ../'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+
+# very usefull addition, in some distros default
+alias ll='ls -al'
+
+# alias for shortcut to ping 8.8.8.8 (easier checking for internet connection)
+alias pingy='ping 8.8.8.8'
+
+# alias for launching neovim
+alias neo='nvim'
