@@ -215,6 +215,13 @@ exec /usr/bin/dropbox &
 # Sets keybinding for making screenshots
 bindsym Print exec gnome-screenshot -i
 
+# Enable touchpad tapping
+# Find touchpad device ID with "xinput list"
+# Find property ID with "xinput list-props <device ID>"
+# Find tapping ID under "libinput Tapping Enabled 0/1"
+# Enable tapping with "xinput set-prop <device ID> <property ID> 1"
+# exec xinput set-prop 13 322 1
+
 # Set border pixels
 #default_border pixel 0
 hide_edge_borders smart
