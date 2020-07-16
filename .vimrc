@@ -1,3 +1,14 @@
+" make use of Pathogen as VIM Plugin manager:
+" https://github.com/tpope/vim-pathogen
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+
+" Suggestions for packages to install with Pathogen:
+"     auto-pairs: https://www.vim.org/scripts/script.php?script_id=3599
+"     nerd-tree: https://github.com/preservim/nerdtree
+"     rust-vim: https://github.com/rust-lang/rust.vim
+
 " enable syntax hilighting
 syntax enable
 
