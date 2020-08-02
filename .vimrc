@@ -8,6 +8,7 @@ filetype plugin indent on
 "     auto-pairs: https://www.vim.org/scripts/script.php?script_id=3599
 "     nerd-tree: https://github.com/preservim/nerdtree
 "     rust-vim: https://github.com/rust-lang/rust.vim
+"     you-complete-me: https://www.alexeyshmalko.com/2014/youcompleteme-ultimate-autocomplete-plugin-for-vim/
 
 " enable syntax hilighting
 syntax enable
