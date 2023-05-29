@@ -15,9 +15,16 @@ set $mod Mod4
 # is used in the bar {} block below.
 font pango:monospace 8
 
+# Add desktop wallpaper
+exec --no-startup-id nitrogen --restore
+
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
+
+# Start XDG autostart .desktop files using dex. See also
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec --no-startup-id dex --autostart --environment i3
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -30,6 +37,12 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
+# Start Dropbox
+exec --no-startup-id dropbox start
+
+# Start Compositor
+exec_always --no-startup-id picom -b
+
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
@@ -40,27 +53,29 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# move tiling windows via drag & drop by left-clicking into the title bar,
+# or left-clicking anywhere into the window while holding the floating modifier.
+tiling_drag modifier titlebar
+
 # start a terminal
-#bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec alacritty
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-# bindsym $mod+d exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-#bindsym $mod+d exec --no-startup-id rofi -show drun
-#bindsym $mod+d exec --no-startup-id  rofi -combi-modi window,drun,ssh -theme solarized -font "hack 10" -show combi
+bindsym $mod+d exec --no-startup-id dmenu_run
+# A more modern dmenu replacement is rofi:
+# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
+# There also is i3-dmenu-desktop which only displays applications shipping a
+# .desktop file. It is a wrapper around dmenu, so you need that installed.
+# bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-#bindsym $mod+j focus left
-#bindsym $mod+k focus down
-#bindsym $mod+l focus up
-#bindsym $mod+semicolon focus right
+bindsym $mod+Shift+b exec firefox
+bindsym $mod+Shift+e exec dolphin
+
+# change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
@@ -73,10 +88,6 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-#bindsym $mod+Shift+j move left
-#bindsym $mod+Shift+k move down
-#bindsym $mod+Shift+l move up
-#bindsym $mod+Shift+semicolon move right
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
@@ -94,9 +105,6 @@ bindsym $mod+b split h
 # split in vertical orientation
 bindsym $mod+v split v
 
-# split toggle
-bindsym $mod+t split toggle
-
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
@@ -109,19 +117,13 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-#bindsym $mod+space focus mode_toggle
+bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
-
-# Open File browser
-bindsym $mod+Shift+f exec nautilus &
-
-# Open Web browser
-bindsym $mod+Shift+w exec firefox &
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -165,7 +167,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -197,59 +199,11 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        #status_command i3status
-        #i3bar_command i3bar --transparency
-        #mode hide              # hide i3bar, show with Mod1
-        tray_output primary    # show sys-tray on primary monitor
-        # Doc: https://bumblebee-status.readthedocs.io/en/main/introduction.html
-        status_command ~/.local/bin/bumblebee-status \
-                -m hostname ping disk:root cpu memory pasink pasource date time pacman \
-                -p root.path=/ time.format="%H:%M" date.format="%a, %b %d %Y" \
-                -t night-powerline #iceberg-contrast 
+        status_command i3status
 }
 
-# Use polybar
-#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-
-# Setup 3 monitors
-exec xrandr --output DisplayPort-0 --primary --mode 1920x1080 --pos 1080x480 --rotate normal --output DisplayPort-1 --mode 1920x1080 --pos 0x0 --rotate left --output HDMI-A-0 --mode 1920x1080 --pos 3000x480 --rotate normal --output HDMI-A-1 --off --output DVI-D-0 --off
-
-# Execute Compton for setting transparency
-exec_always --no-startup-id picom &
-
-# Execute Nitrogen for setting the background
-exec --no-startup-id nitrogen --restore
-
-# Start pulseaudio-alsa
-exec pulseaudio-alsa
-
-# Starts Dropbox deamon
-exec /usr/bin/dropbox &
-
-# Sets keybinding for making screenshots
-bindsym Print exec gnome-screenshot -i
-
-<<<<<<< HEAD
-# Sets keybinding to switch keyboard layout
-bindsym $mod+space exec xkblayout-state set $(( $(xkblayout-state print %c) ^ 1  ))
-=======
-# Enable touchpad tapping
-# Find touchpad device ID with "xinput list"
-# Find property ID with "xinput list-props <device ID>"
-# Find tapping ID under "libinput Tapping Enabled 0/1"
-# Enable tapping with "xinput set-prop <device ID> <property ID> 1"
-# exec xinput set-prop 13 322 1
->>>>>>> 8e1820a75a9ed0b95512b6d009edd47499a60ca6
-
-# Set border pixels
-#default_border pixel 0
-hide_edge_borders smart
-
-# Activate gaps
-for_window [class=".*"] border pixel 0
-gaps outer 15
-gaps inner 20
-smart_gaps on
+default_border pixel 0
 smart_borders on
-bindsym $mod+Shift+plus  gaps inner current plus 5
-bindsym $mod+Shift+minus  gaps inner current minus 5
+smart_gaps on
+gaps inner 20
+gaps outer 5
