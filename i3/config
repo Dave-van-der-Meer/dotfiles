@@ -41,7 +41,10 @@ exec --no-startup-id nm-applet
 exec --no-startup-id dropbox start
 
 # Start Compositor
-exec_always --no-startup-id picom -b
+exec_always --no-startup-id compton
+
+# Start pule audio systray
+exec --no-startup-id pasystray
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -55,10 +58,10 @@ floating_modifier $mod
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
-tiling_drag modifier titlebar
+# tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec terminator # alacritty
 
 # kill focused window
 bindsym $mod+q kill
@@ -73,7 +76,9 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 
 # change focus
 bindsym $mod+Shift+b exec firefox
-bindsym $mod+Shift+e exec dolphin
+bindsym $mod+Shift+e exec --no-startup-id nautilus # dolphin
+bindsym $mod+semicolon exec i3lock -c 000000 # i3lock with black screen
+bindsym $mod+Shift+Return exec "rofi -modi drun,run -show drun"
 
 # change focus
 bindsym $mod+h focus left
@@ -202,8 +207,8 @@ bar {
         status_command i3status
 }
 
-default_border pixel 0
-smart_borders on
-smart_gaps on
-gaps inner 20
-gaps outer 5
+# default_border pixel 0
+# smart_borders on
+# smart_gaps on
+# gaps inner 20
+# gaps outer 5
