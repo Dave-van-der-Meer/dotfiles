@@ -1,0 +1,39 @@
+* {
+    
+    font-family: "Ubuntu", "Roboto";
+}
+
+window {
+    border-radius: 15px;
+}
+
+window#waybar {
+    background: rgba(43, 48, 59, 0.0);
+}
+
+#workspaces {
+    border-radius: 15px;
+    border: 2px solid #aaaaaa;
+    padding: 0px 0px 0px 0px;
+}
+
+#workspaces button.active {
+    border-radius: 15px;
+    background: rgba(100, 100, 100, 0.5);
+}
+
+#custom-logout,
+#tray,
+#temperature,
+#idle_inhibitor,
+#memory,
+#cpu,
+#network,
+#pulseaudio,
+#clock {
+    border-radius: 15px;
+    background: #000000;
+    border: 2px solid #aaaaaa;
+    padding: 0px 5px;
+    margin: 0px 2px;
+}
