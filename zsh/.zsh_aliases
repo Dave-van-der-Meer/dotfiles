@@ -1,0 +1,62 @@
+alias grep='grep --color=auto'
+alias ll='ls -alFhA'
+
+alias pingy="ping 1.1.1.1"
+alias humble="source /opt/ros/humble/setup.zsh" # && source ~/ros2_ws/install/local_setup.zsh"
+alias rosenv="env | grep ROS"
+alias reload="omz reload "
+alias mosh='mosh --no-init'
+alias mprocs='mprocs --config ~/.mprocs/mprocs.yaml'
+alias tree='lsd --tree'
+alias ls='lsd'
+
+alias leo_export_01="export ROS_MASTER_URI=http://172.19.1.112:11311 && export ROS_IP=172.19.1.49"
+alias leo_export_02="export ROS_MASTER_URI=http://172.19.1.122:11311 && export ROS_IP=172.19.1.49"
+alias leo_export_03="export ROS_MASTER_URI=http://172.19.1.132:11311 && export ROS_IP=172.19.1.49"
+alias leo_export_04="export ROS_MASTER_URI=http://172.19.1.142:11311 && export ROS_IP=172.19.1.49"
+
+alias netscan44="sudo netscan -r 192.168.44.0/24"
+alias netscan88="sudo netscan -r 192.168.88.0/24"
+
+alias leo_ping_01="ping 192.168.88.112"
+alias leo_ping_02="ping 192.168.88.122"
+alias leo_ping_03="ping 192.168.88.132"
+alias leo_ping_04="ping 192.168.88.142"
+
+alias lander_connect="ssh -o PreferredAuthentications=keyboard-interactive,password -o PubkeyAuthentication=no lander@192.168.88.100"
+
+alias xavier_ping_01="ping 192.168.88.113"
+alias xavier_ping_02="ping 192.168.88.123"
+alias xavier_ping_03="ping 192.168.88.133"
+alias xavier_ping_04="ping 192.168.88.143"
+
+alias tf_tree="ros2 run rqt_tf_tree rqt_tf_tree"
+# alias teleop="foxy && ros2 launch leorover_teleop joy_teleop_fast.launch.xml"
+alias leo01_teleop="ros2 run teleop_twist_keyboard teleop_twist_keyboard cmd_vel:=/leo01/cmd_vel"
+alias leo02_teleop="ros2 run teleop_twist_keyboard teleop_twist_keyboard cmd_vel:=/leo02/cmd_vel"
+alias leo03_teleop="ros2 run teleop_twist_keyboard teleop_twist_keyboard cmd_vel:=/leo03/cmd_vel"
+
+alias leo01_light_on='ros2 service call /leo01/switch_light std_srvs/srv/SetBool "data: true"'
+alias leo01_light_off='ros2 service call /leo01/switch_light std_srvs/srv/SetBool "data: false"'
+
+alias ip="ip -c" # colorize ip address output
+alias cat='pygmentize -g'
+alias blender="cd /home/dave/.blender/blender-4.0.2-linux-x64 && ./blender"
+alias blender="cd /home/dave/.blender/blender-4.1.1-linux-x64 && ./blender"
+alias mcap="/media/dave/home/Documents/mcap_CLI/mcap"
+
+alias foxglove='ros2 launch foxglove_bridge foxglove_bridge_launch.xml'
+alias omnipy="~/.local/share/ov/pkg/isaac_sim-2022.2.1/python.sh"
+
+alias rosdomain0='export ROS_DOMAIN_ID=0'
+alias rosdomain7='export ROS_DOMAIN_ID=7'
+
+alias setup_lunalab_sim='source ~/Documents/coding/ros2/leorover_gz_sim_lunalab/ros2_ws/install/setup.zsh'
+#alias leosim='ros2 launch leo_gz_bringup leo_gz.launch.py sim_world:=/home/dave/Documents/coding/ros2/leorover_gz_sim/ros2_ws/src/leo_simulator-ros2/leo_gz_worlds/worlds/marsyard2020.sdf'
+alias leosim='setup_lunalab_sim && ros2 launch leo_gz_bringup leo_gz.launch.py sim_world:=/home/dave/Documents/coding/ros2/leorover_gz_sim_lunalab/ros2_ws/src/leo_simulator-ros2/leo_gz_worlds/worlds/lunalab2024.sdf'
+alias plumesim='setup_lunalab_sim && ros2 launch leo_gz_bringup leo_gz.launch.py sim_world:=/home/dave/Documents/coding/ros2/leorover_gz_sim_lunalab/ros2_ws/src/plume_cave/worlds/simple_cave.sdf'
+alias leomap='setup_lunalab_sim && ros2 launch rtabmap_livox rtabmap_livox.launch.py'
+
+
+alias data_dir="cd ~/Documents/coding/python/feature_comparison/feature_extraction/data"
+alias rsync="rsync --progress --recursive"
